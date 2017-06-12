@@ -1,6 +1,7 @@
 package de.hardt.docCreator.service;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
@@ -32,15 +33,25 @@ public class CreatorService {
 		String response = "";
 		// the XSL FO file
 		File xsltFile = new File(config.getRootPath() + "\\templates\\" + templateFileName + ".xsl");
+		
 		// the XML file which provides the input
-		StreamSource xmlSource = new StreamSource(new File(config.getRootPath() + "\\templates\\" + inputFileName + ".xsl"));
+		StreamSource xmlSource = new StreamSource(new File(config.getRootPath() + "\\input\\" + inputFileName + ".xml"));
+		
 		// create an instance of fop factory
 		FopFactory fopFactory = FopFactory.newInstance(new File(".").toURI());
+		
 		// a user agent is needed for transformation
 		FOUserAgent foUserAgent = fopFactory.newFOUserAgent();
+		
 		// Setup output
-		OutputStream out;
-		out = new java.io.FileOutputStream(config.getRootPath() + "\\output\\simple.pdf");
+		String fullOutputFileName = config.getRootPath() + "\\output\\";
+		if (outputFileName != null) {
+			fullOutputFileName =  fullOutputFileName + outputFileName + ".pdf";
+		} else {
+			fullOutputFileName = fullOutputFileName + inputFileName + ".pdf";
+		}
+			
+		OutputStream out = new FileOutputStream(fullOutputFileName);
 
 		try {
 			// Construct fop with desired output format
