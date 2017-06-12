@@ -37,16 +37,11 @@
 			<xsl:if test="designation = 'Manager'">
 				<xsl:attribute name="font-weight">bold</xsl:attribute>
 			</xsl:if>
-			<xsl:if test="designation = 'Developer'">
-				<xsl:attribute name="font-weight">bold</xsl:attribute>
-				<xsl:attribute name="color">red</xsl:attribute>
-			</xsl:if>
 			<fo:table-cell>
 				<fo:block>
 					<xsl:value-of select="id" />
 				</fo:block>
 			</fo:table-cell>
-
 			<fo:table-cell>
 				<fo:block>
 					<xsl:value-of select="name" />

@@ -28,19 +28,19 @@ public class CreatorService {
 	@Autowired
 	private Config config;
 
-	public String convertToPDF() throws IOException, FOPException, TransformerException {
+	public String convertToPDF(String inputFileName, String templateFileName, String outputFileName) throws IOException, FOPException, TransformerException {
 		String response = "";
 		// the XSL FO file
-		File xsltFile = new File(config.getRootPath() + "\\files\\templates\\simple.xsl");
+		File xsltFile = new File(config.getRootPath() + "\\templates\\" + templateFileName + ".xsl");
 		// the XML file which provides the input
-		StreamSource xmlSource = new StreamSource(new File(config.getRootPath() + "\\files\\input\\simple.xml"));
+		StreamSource xmlSource = new StreamSource(new File(config.getRootPath() + "\\templates\\" + inputFileName + ".xsl"));
 		// create an instance of fop factory
 		FopFactory fopFactory = FopFactory.newInstance(new File(".").toURI());
 		// a user agent is needed for transformation
 		FOUserAgent foUserAgent = fopFactory.newFOUserAgent();
 		// Setup output
 		OutputStream out;
-		out = new java.io.FileOutputStream(config.getRootPath() + "\\files\\output\\simple.pdf");
+		out = new java.io.FileOutputStream(config.getRootPath() + "\\output\\simple.pdf");
 
 		try {
 			// Construct fop with desired output format
